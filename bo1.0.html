@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>劝劝陈博晓 · 网络新世界</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Comic Sans MS", "Chalkboard SE", "PingFang SC", "Microsoft YaHei", cursive, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f9e7b2 0%, #f5d0b8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            position: relative;
+        }
+
+        body::before {
+            content: "⭐ 🌟 ⭐ 🌟 ⭐ 🌟";
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            font-size: 40px;
+            opacity: 0.15;
+            pointer-events: none;
+            letter-spacing: 20px;
+            z-index: 0;
+        }
+        body::after {
+            content: "🏆 🎮 🎯 🏆 🎮 🎯";
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 36px;
+            opacity: 0.12;
+            pointer-events: none;
+            letter-spacing: 14px;
+            z-index: 0;
+        }
+
+        .app {
+            max-width: 1100px;
+            width: 100%;
+            height: 94vh;
+            max-height: 820px;
+            background: rgba(255, 248, 240, 0.94);
+            backdrop-filter: blur(2px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 60px rgba(60, 40, 20, 0.18), 0 0 0 6px #faf0e6 inset;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            border: 3px solid rgba(200, 170, 140, 0.25);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff8a65, #ffb74d, #f06292);
+            padding: 14px 24px 12px 24px;
+            color: #fff;
+            flex-shrink: 0;
+            border-bottom: 6px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .header::after {
+            content: "🎮 ⚡ 🏅";
+            position: absolute;
+            right: 20px;
+            top: 6px;
+            font-size: 30px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .header-title {
+            font-size: 28px;
+            font-weight: 900;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-title .badge {
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header-scene {
+            font-size: 17px;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 6px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+        .header-scene strong {
+            font-weight: 800;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 16px 5px 12px;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+        }
+        .progress-wrap .label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .progress-bar {
+            width: 120px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ffd54f, #ffb300, #ff8f00);
+            border-radius: 20px;
+            transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .progress-wrap .score-text {
+            font-size: 16px;
+            font-weight: 900;
+            min-width: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 10px;
+            border-radius: 30px;
+        }
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: rotate(80deg) scale(1.08);
+        }
+
+        .main-body {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            padding: 10px 14px 8px 14px;
+            gap: 16px;
+        }
+        .chat-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background: #f5efe6;
+            border-radius: 28px;
+            border: 3px solid #e8dccc;
+            overflow: hidden;
+            position: relative;
+        }
+        .chat-wrapper::before {
+            content: "💬";
+            position: absolute;
+            top: 8px;
+            right: 14px;
+            font-size: 28px;
+            opacity: 0.10;
+            pointer-events: none;
+        }
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 8px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .bookshelf {
+            flex: 0 0 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            padding: 2px 4px 2px 2px;
+            min-width: 150px;
+            max-width: 220px;
+        }
+        .bookshelf::-webkit-scrollbar {
+            width: 3px;
+        }
+        .bookshelf::-webkit-scrollbar-thumb {
+            background: #c4b0a0;
+            border-radius: 10px;
+        }
+
+        .book {
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            flex-shrink: 0;
+        }
+        .book:hover {
+            transform: translateX(4px);
+        }
+        .book-cover {
+            padding: 12px 16px;
+            border-radius: 16px 16px 4px 4px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 4px solid rgba(0, 0, 0, 0.10);
+            min-height: 60px;
+            transition: all 0.3s;
+        }
+        .book-cover .book-icon {
+            font-size: 28px;
+        }
+        .book-cover .book-title {
+            font-size: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
+        }
+        .book-cover .book-sub {
+            font-size: 11px;
+            opacity: 0.85;
+        }
+        .book-rumor .book-cover {
+            background: linear-gradient(145deg, #c0392b, #e74c3c);
+        }
+        .book-hacker .book-cover {
+            background: linear-gradient(145deg, #2980b9, #3498db);
+        }
+        .book-rule .book-cover {
+            background: linear-gradient(145deg, #27ae60, #2ecc71);
+        }
+
+        .book-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.34, 1.0, 0.64, 1), padding 0.3s;
+            background: #faf4ec;
+            border-radius: 0 0 16px 16px;
+            padding: 0 8px;
+            border: 2px solid transparent;
+            border-top: none;
+        }
+        .book.open .book-content {
+            max-height: 400px;
+            padding: 10px 8px 12px 8px;
+            border-color: rgba(0, 0, 0, 0.08);
+            overflow-y: auto;
+        }
+        .book.open {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        .book-content .law-item {
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: #fffcf8;
+            border-radius: 10px;
+            border-left: 4px solid #c49a6c;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #3d2e1e;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .book-content .law-item:hover {
+            background: #fff5ea;
+            border-left-color: #8b6b4a;
+            transform: translateX(4px);
+        }
+        .book-content .law-item:active {
+            transform: scale(0.97);
+        }
+        .book-content .law-item .law-name {
+            font-weight: 700;
+            color: #5a3d2a;
+            font-size: 13px;
+        }
+        .book-content .law-item .law-body {
+            color: #4a3a2a;
+            font-size: 12px;
+            line-height: 1.6;
+            display: block;
+        }
+        .book-content .law-item .law-body b {
+            color: #c0392b;
+            background: #fee8e0;
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .book-content .copy-hint {
+            font-size: 10px;
+            color: #a08070;
+            text-align: right;
+            padding: 2px 4px 0 0;
+            opacity: 0.6;
+            font-style: italic;
+        }
+        .book-content .law-item.copied {
+            background: #e8f0e0;
+            border-left-color: #27ae60;
+            transform: scale(0.98);
+        }
+        .book-content::-webkit-scrollbar {
+            width: 3px;
+        }
+        .book-content::-webkit-scrollbar-thumb {
+            background: #c4b0a0;
+            border-radius: 10px;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            max-width: 88%;
+            animation: msgPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        @keyframes msgPop {
+            0% {
+                opacity: 0;
+                transform: translateY(14px) scale(0.92);
+            }
+            60% {
+                transform: translateY(-2px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            background: #ffe0bd;
+            position: relative;
+        }
+        .avatar svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .message.user .avatar {
+            border-color: #bbdefb;
+            background: #ffd7b5;
+        }
+
+        .mood-indicator {
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 2px 8px;
+            display: inline-block;
+            margin-top: 2px;
+            text-align: center;
+            white-space: nowrap;
+            font-weight: 600;
+            color: #5a3d2a;
+        }
+        .message.chen .avatar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bubble {
+            background: #ffffff;
+            padding: 10px 16px 8px 16px;
+            border-radius: 20px;
+            border-top-left-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            font-size: 14px;
+            line-height: 1.7;
+            color: #2d241a;
+            word-break: break-word;
+            min-width: 40px;
+            position: relative;
+        }
+        .message.user .bubble {
+            background: #d6e8ff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 4px;
+        }
+        .bubble .sender {
+            font-size: 11px;
+            font-weight: 700;
+            color: #7a5a3a;
+            margin-bottom: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .message.user .bubble .sender {
+            color: #2a5f8a;
+        }
+        .bubble .sender .tag {
+            font-size: 9px;
+            background: #ede5da;
+            padding: 0 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            color: #6a5a4a;
+        }
+        .message.user .bubble .sender .tag {
+            background: #b3d0f0;
+            color: #1a3f6a;
+        }
+        .bubble .time {
+            font-size: 10px;
+            color: #b0a090;
+            margin-top: 4px;
+            text-align: right;
+        }
+        .message.chen .bubble {
+            background: #f0f0ea;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 20px;
+        }
+
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px 8px 14px;
+            background: #ede5da;
+            border-radius: 30px;
+            border-top-left-radius: 4px;
+            width: fit-content;
+            font-size: 13px;
+            color: #7a6a5a;
+            animation: msgPop 0.3s ease-out;
+        }
+        .typing .dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #b0a090;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: dotBounce 1.3s infinite ease-in-out;
+        }
+        .typing .dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing .dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes dotBounce {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
+
+        .system-celebration {
+            background: linear-gradient(135deg, #fde8c8, #fad6a0);
+            border-radius: 30px;
+            padding: 20px 30px;
+            text-align: center;
+            border: 6px solid #f5b87a;
+            box-shadow: 0 8px 32px rgba(200, 140, 60, 0.30);
+            animation: celebPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin: 8px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            max-width: 90%;
+            width: fit-content;
+        }
+        .system-celebration.full {
+            border-color: #ffd54f;
+            background: linear-gradient(135deg, #fff3c4, #ffecb0);
+            box-shadow: 0 8px 32px rgba(255, 193, 7, 0.40);
+        }
+        @keyframes celebPop {
+            0% {
+                transform: scale(0.4) rotate(-8deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        .system-celebration .big {
+            font-size: 42px;
+            font-weight: 900;
+            color: #e65100;
+            display: block;
+            line-height: 1.2;
+        }
+        .system-celebration.full .big {
+            color: #f57f17;
+        }
+        .system-celebration .line2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #4e342e;
+        }
+        .system-celebration .line3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #5d4037;
+            opacity: 0.9;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(45, 36, 26, 0.92);
+            backdrop-filter: blur(4px);
+            color: #f5efe6;
+            padding: 14px 28px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            z-index: 999;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            max-width: 92%;
+            text-align: center;
+            line-height: 1.8;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast .toast-score {
+            font-size: 18px;
+            font-weight: 900;
+            color: #ffd54f;
+        }
+        .toast .toast-detail {
+            opacity: 0.8;
+            font-weight: 400;
+            font-size: 13px;
+        }
+        .toast .toast-hint {
+            color: #81d4fa;
+            font-weight: 400;
+            font-size: 13px;
+        }
+        .toast .toast-warning {
+            color: #ffab91;
+            font-weight: 600;
+        }
+        .toast .toast-good {
+            color: #a5d6a7;
+            font-weight: 600;
+        }
+
+        .input-area {
+            flex-shrink: 0;
+            padding: 8px 14px 14px 14px;
+            background: #ffffff;
+            border-top: 3px solid #e8dccc;
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        .input-area textarea {
+            flex: 1;
+            border: 3px solid #e8dccc;
+            border-radius: 28px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            transition: all 0.25s;
+            min-height: 44px;
+            max-height: 100px;
+            line-height: 1.6;
+            background: #fcf8f2;
+        }
+        .input-area textarea:focus {
+            border-color: #c49a6c;
+            box-shadow: 0 0 0 6px rgba(196, 154, 108, 0.12);
+            background: #ffffff;
+        }
+        .input-area textarea::placeholder {
+            color: #b0a090;
+            font-size: 13px;
+        }
+        .input-area .voice-btn {
+            background: #e8dccc;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5a3d2a;
+            flex-shrink: 0;
+        }
+        .input-area .voice-btn:hover {
+            background: #d5c4b0;
+        }
+        .input-area .voice-btn.listening {
+            background: #ff8a65;
+            color: #fff;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .btn-send {
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #ffb74d, #ff8a65);
+            border: none;
+            color: #fff;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(255, 138, 101, 0.30);
+        }
+        .btn-send:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 24px rgba(255, 138, 101, 0.40);
+        }
+        .btn-send:active {
+            transform: scale(0.88);
+        }
+        .btn-send:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 820px) {
+            .main-body {
+                flex-direction: row;
+                padding: 8px 10px 6px 10px;
+            }
+            .bookshelf {
+                flex: 0 0 140px;
+                min-width: 120px;
+                max-width: 160px;
+                gap: 8px;
+            }
+            .book-cover {
+                padding: 8px 12px;
+                min-height: 50px;
+                gap: 8px;
+            }
+            .book-cover .book-icon {
+                font-size: 22px;
+            }
+            .book-cover .book-title {
+                font-size: 13px;
+            }
+            .book-cover .book-sub {
+                font-size: 10px;
+            }
+            .book.open .book-content {
+                max-height: 300px;
+            }
+            .header-title {
+                font-size: 22px;
+            }
+            .header-scene {
+                font-size: 15px;
+            }
+            .progress-bar {
+                width: 80px;
+            }
+            .system-celebration .big {
+                font-size: 34px;
+            }
+            .system-celebration .line2 {
+                font-size: 22px;
+            }
+            .system-celebration .line3 {
+                font-size: 18px;
+            }
+            .toast {
+                font-size: 13px;
+                padding: 12px 20px;
+                bottom: 100px;
+            }
+            .toast .toast-score {
+                font-size: 16px;
+            }
+        }
+        @media (max-width: 600px) {
+            .header {
+                padding: 10px 14px;
+            }
+            .header-title {
+                font-size: 18px;
+            }
+            .header-title .badge {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .header-scene {
+                font-size: 14px;
+                padding: 4px 12px;
+                max-width: 100%;
+            }
+            .progress-wrap {
+                padding: 3px 10px;
+            }
+            .progress-bar {
+                width: 60px;
+                height: 10px;
+            }
+            .btn-reset {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            .chat-area {
+                padding: 10px 12px 4px;
+            }
+            .bubble {
+                font-size: 13px;
+                padding: 8px 12px 6px;
+            }
+            .avatar {
+                width: 36px;
+                height: 36px;
+            }
+            .bookshelf {
+                flex: 0 0 110px;
+                min-width: 90px;
+                max-width: 130px;
+                gap: 6px;
+            }
+            .book-cover {
+                padding: 6px 8px;
+                min-height: 40px;
+                gap: 6px;
+            }
+            .book-cover .book-icon {
+                font-size: 18px;
+            }
+            .book-cover .book-title {
+                font-size: 11px;
+            }
+            .book-cover .book-sub {
+                font-size: 9px;
+            }
+            .book-content .law-item {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            .book-content .law-item .law-body {
+                font-size: 10px;
+            }
+            .book.open .book-content {
+                max-height: 220px;
+                padding: 6px 4px 8px;
+            }
+            .input-area {
+                padding: 6px 10px 10px;
+            }
+            .input-area textarea {
+                font-size: 13px;
+                padding: 8px 14px;
+                min-height: 38px;
+            }
+            .btn-send {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+            .system-celebration {
+                padding: 16px 20px;
+            }
+            .system-celebration .big {
+                font-size: 28px;
+            }
+            .system-celebration .line2 {
+                font-size: 18px;
+            }
+            .system-celebration .line3 {
+                font-size: 16px;
+            }
+            .input-area .voice-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+            .toast {
+                font-size: 12px;
+                padding: 10px 16px;
+                bottom: 90px;
+                max-width: 95%;
+            }
+            .toast .toast-score {
+                font-size: 15px;
+            }
+        }
+        @media (max-width: 420px) {
+            .bookshelf {
+                flex: 0 0 90px;
+                min-width: 70px;
+                max-width: 100px;
+            }
+            .book-cover {
+                padding: 4px 6px;
+                min-height: 34px;
+                gap: 4px;
+            }
+            .book-cover .book-icon {
+                font-size: 14px;
+            }
+            .book-cover .book-title {
+                font-size: 9px;
+            }
+            .book-cover .book-sub {
+                font-size: 7px;
+            }
+            .book-content .law-item {
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+            .book-content .law-item .law-body {
+                font-size: 9px;
+            }
+            .book.open .book-content {
+                max-height: 180px;
+                padding: 4px 2px 6px;
+            }
+            .header-title {
+                font-size: 15px;
+            }
+            .header-scene {
+                font-size: 12px;
+            }
+            .system-celebration .big {
+                font-size: 24px;
+            }
+            .system-celebration .line2 {
+                font-size: 16px;
+            }
+            .system-celebration .line3 {
+                font-size: 14px;
+            }
+            .input-area .voice-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            .toast {
+                font-size: 11px;
+                padding: 8px 14px;
+                bottom: 80px;
+            }
+            .toast .toast-score {
+                font-size: 14px;
+            }
+        }
+        .chat-area::-webkit-scrollbar,
+        .bookshelf::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .chat-area::-webkit-scrollbar-thumb,
+        .bookshelf::-webkit-scrollbar-thumb {
+            background: #c4b0a0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app" id="app">
+        <header class="header">
+            <div class="header-left">
+                <div class="header-title">
+                    🏛️ 劝劝陈博晓
+                    <span class="badge">四年级 · 网络新世界</span>
+                </div>
+                <div class="header-scene">
+                    📢 <strong>陈博晓</strong> 在班级论坛散布同学失踪的假消息，还想去下载黑客软件。<br>
+                    🎯 点击右侧的标签查看相关法规与行为准则，用它们来劝说他！
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="progress-wrap">
+                    <span class="label">⭐ 劝说力</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="fill" id="progressFill" style="width:0%;"></div>
+                    </div>
+                    <span class="score-text" id="scoreText">0</span>
+                </div>
+                <button class="btn-reset" id="resetBtn" aria-label="重新开始">⟳</button>
+            </div>
+        </header>
+
+        <div class="main-body">
+            <div class="chat-wrapper">
+                <div class="chat-area" id="chatArea"></div>
+                <div class="input-area">
+                    <textarea id="msgInput" rows="1" placeholder="输入你的劝说… 点击右侧标签可复制关键条文" maxlength="500"></textarea>
+                    <button class="voice-btn" id="voiceBtn" aria-label="语音输入">🎤</button>
+                    <button class="btn-send" id="sendBtn" aria-label="发送">➤</button>
+                </div>
+            </div>
+            <div class="bookshelf" id="bookshelf"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================================================================
+        //  数据：法律法规 + 行为准则
+        // ================================================================
+        const LAW_BOOKS = [{
+            id: 'rumor',
+            icon: '📢',
+            title: '散布谣言·警钟',
+            subtitle: '针对发布假消息',
+            color: 'book-rumor',
+            items: [{
+                name: '《治安管理处罚法》第二十五条第一项',
+                fullText: '散布谣言，谎报险情、疫情、警情或者以其他方法故意扰乱公共秩序的，处五日以上十日以下拘留，可以并处五百元以下罚款；情节较轻的，处五日以下拘留或者五百元以下罚款。',
+                keyPhrase: '散布谣言，谎报警情，扰乱公共秩序，处拘留、罚款。',
+                keywords: ['散布谣言', '谎报警情', '扰乱公共秩序', '拘留', '罚款']
+            }, {
+                name: '《刑法》第二百九十一条之一第二款',
+                fullText: '编造虚假的险情、疫情、灾情、警情，在信息网络或者其他媒体上传播，或者明知是上述虚假信息，故意在信息网络或者其他媒体上传播，严重扰乱社会秩序的，处三年以下有期徒刑、拘役或者管制；造成严重后果的，处三年以上七年以下有期徒刑。',
+                keyPhrase: '编造虚假警情在网络传播，严重扰乱秩序，最高判刑七年。',
+                keywords: ['编造虚假', '警情', '在网络传播', '严重扰乱', '判刑']
+            }, {
+                name: '《网络安全法》第十二条',
+                fullText: '任何个人和组织使用网络应当遵守宪法法律，遵守公共秩序，尊重社会公德，不得利用网络传播虚假信息扰乱经济秩序和社会秩序。',
+                keyPhrase: '不得利用网络传播虚假信息扰乱秩序。',
+                keywords: ['不得利用网络', '传播虚假信息', '扰乱秩序']
+            }]
+        }, {
+            id: 'hacker',
+            icon: '💻',
+            title: '网络黑客·防火墙',
+            subtitle: '针对下载黑客软件',
+            color: 'book-hacker',
+            items: [{
+                name: '《刑法》第二百八十五条第三款',
+                fullText: '提供专门用于侵入、非法控制计算机信息系统的程序、工具，或者明知他人实施侵入、非法控制计算机信息系统的违法犯罪行为而为其提供程序、工具，情节严重的，依照前款的规定处罚。',
+                keyPhrase: '提供或使用侵入、非法控制计算机系统的程序、工具，最高判刑七年。',
+                keywords: ['侵入', '非法控制', '计算机信息系统', '程序', '工具', '提供', '使用']
+            }, {
+                name: '《刑法》第二百八十五条第二款',
+                fullText: '违反国家规定，侵入前款规定以外的计算机信息系统或者采用其他技术手段，获取该计算机信息系统中存储、处理或者传输的数据，或者对该计算机信息系统实施非法控制，情节严重的，处三年以下有期徒刑或者拘役，并处或者单处罚金；情节特别严重的，处三年以上七年以下有期徒刑，并处罚金。',
+                keyPhrase: '非法侵入计算机系统、获取数据或实施控制，最高判刑七年。',
+                keywords: ['侵入', '计算机信息系统', '获取数据', '非法控制', '判刑']
+            }, {
+                name: '《网络安全法》第二十七条',
+                fullText: '任何个人和组织不得从事非法侵入他人网络、干扰他人网络正常功能、窃取网络数据等危害网络安全的活动；不得提供专门用于从事侵入网络、干扰网络正常功能及防护措施、窃取网络数据等危害网络安全活动的程序、工具。',
+                keyPhrase: '禁止非法侵入网络、干扰网络功能、窃取数据，也禁止提供相关工具。',
+                keywords: ['不得', '非法侵入', '干扰网络', '窃取数据', '提供', '工具']
+            }, {
+                name: '《网络安全法》第六十三条',
+                fullText: '违反本法第二十七条规定，尚不构成犯罪的，由公安机关没收违法所得，处五日以下拘留，可以并处五万元以上五十万元以下罚款；情节较重的，处五日以上十五日以下拘留，可以并处十万元以上一百万元以下罚款。',
+                keyPhrase: '违反网络安全法，可处拘留和最高一百万元罚款。',
+                keywords: ['违反', '没收', '拘留', '罚款', '一百万元']
+            }, {
+                name: '《治安管理处罚法》第二十九条第一项',
+                fullText: '违反国家规定，侵入计算机信息系统，造成危害的，处五日以下拘留；情节较重的，处五日以上十日以下拘留。',
+                keyPhrase: '非法侵入计算机系统，处拘留。',
+                keywords: ['侵入', '计算机信息系统', '拘留']
+            }]
+        }, {
+            id: 'rule',
+            icon: '📜',
+            title: '行为规范·文明线',
+            subtitle: '行为准则',
+            color: 'book-rule',
+            items: [{
+                name: '《全国青少年网络文明公约》',
+                fullText: '要善于网上学习，不浏览不良信息；要诚实友好交流，不侮辱欺诈他人；要增强自护意识，不随意约会网友；要维护网络安全，不破坏网络秩序。',
+                keyPhrase: '诚实友好交流，不欺诈他人；维护网络安全，不破坏网络秩序。',
+                keywords: ['诚实友好', '不欺诈', '维护网络安全', '不破坏网络秩序']
+            }, {
+                name: '《中小学生守则（2015年修订）》',
+                fullText: '诚实守信有担当——保持言行一致，不说谎不作弊，借东西及时还，做到知错就改。',
+                keyPhrase: '诚实守信有担当，知错就改。',
+                keywords: ['诚实守信', '有担当', '知错就改']
+            }]
+        }];
+
+        // ================================================================
+        //  陈博晓回应素材库
+        // ================================================================
+
+        const KEYWORD_RESPONSES = {
+            '删帖': ['删帖……好吧，我删。可是大家已经看到了啊……😰', '你说得对，我这就去删帖，但我怕大家已经截图了……😢'],
+            '删除': ['删除……我明白了，我这就去把帖子删掉。😔', '好吧，我删，可是删了大家也看到了……😞'],
+            '道歉': ['让我道歉……真的好丢脸……但你说得对，我错了，我道歉。😢', '道歉……好吧，我向那位同学和全班同学道歉。🙏'],
+            '认错': ['认错……我承认我错了，我不该发假消息。😔', '我认错！我以后再也不敢了！😭'],
+            '卸载': ['卸载黑客软件……我还没下载呢，不过既然违法，我不碰了。💪', '我没下载黑客软件，你说了我才知道这么严重，我不碰了！😨'],
+            '不下载': ['不下载了，不碰了，我真的怕了。😰', '你说了我才知道下载黑客软件是违法的，我绝不下载！💪'],
+            '拘留': ['拘留……我真的会被抓走吗？好害怕……😨', '拘留？！我从来没想过会这么严重……我再也不敢了！😱'],
+            '罚款': ['罚款……我零花钱都不够交罚款的……😰', '还要罚款？我……我知错了！😢'],
+            '坐牢': ['坐牢……我不想坐牢！你救了我一命！😭', '坐牢太可怕了，我再也不敢碰违法的事了！😱'],
+            '判刑': ['判刑……我的人生会毁掉的……谢谢你提醒我！🙏', '判刑太严重了，我绝不碰黑客软件！😭'],
+            '违法': ['违法……我从来没想过我会违法……我以后不敢了。😔', '违法……这个词让我好害怕，我错了！😨'],
+            '犯罪': ['犯罪……我差点就犯罪了！谢谢你把我拉回来！🙏', '犯罪太可怕了，我再也不乱来了！😱'],
+            '网络文明公约': ['文明公约……我好像听说过，但我没遵守……我错了。😞', '网络文明公约说不能欺诈他人……我发假消息确实不对。😔'],
+            '中小学生守则': ['守则上说诚实守信……我发假消息确实不诚实，我改。😔', '中小学生守则……我违背了守则，对不起。😢']
+        };
+
+        const SCORE_RESPONSES = {
+            low: [
+                '哼，我才不信呢！你说的这些跟我有什么关系？😤',
+                '你又在念经了，我根本听不懂……😒',
+                '你别吓唬我，我才不怕呢！😝',
+                '你说得好像很严重，但我就是想玩啊！😏',
+                '你说话好奇怪，我完全不明白你要我干什么……😕'
+            ],
+            mid_low: [
+                '唔……你说得好像有点道理……但我还是想试试……😅',
+                '我有点犹豫了……不过你真的不是吓唬我吗？🤔',
+                '好吧，我承认我可能没想那么多……😰',
+                '你这么说，我心里有点发毛了……😨',
+                '我删帖行了吧？你别再说了……😤'
+            ],
+            mid_high: [
+                '我开始害怕了……我真的做错了吗？😣',
+                '你说得对，我发假消息确实不对……我该怎么办？😥',
+                '我现在有点后悔了，可是已经发了啊……😢',
+                '你能不能教教我，我现在该怎么做才能挽回？🙏',
+                '我开始相信你的话了……谢谢你这么耐心……😌'
+            ],
+            high: [
+                '你说得对！我决定立刻删帖，向大家道歉！💪',
+                '我明白了，网络不是法外之地，我错了！😭',
+                '谢谢你！你是真心为我好，我一定改正！🌟',
+                '我再也不碰黑客软件了，太可怕了！😱',
+                '你让我懂得了什么是责任，我会做个好孩子！🌈'
+            ],
+            perfect: [
+                '你连《治安管理处罚法》都说得这么清楚……我是真的服了！🙏',
+                '你不仅懂法，还告诉我具体怎么做……谢谢你！🌟',
+                '你是我见过最会劝人的人，我决定听你的！🌈',
+                '你太厉害了，把法律和我的行为说得明明白白！👏',
+                '我彻底醒悟了，多亏了你！以后你就是我的榜样！🌟'
+            ]
+        };
+
+        const POST_SUCCESS = [
+            '哈哈，你已经满分通关了！你还要继续劝我吗？不过我很乐意跟你聊天！😊',
+            '谢谢你！我现在已经是个好孩子了！我们还能聊点什么呢？🤔',
+            '你真是我的好朋友！虽然我已经改正了，但你可以多给我讲讲网络安全的知识吗？📚',
+            '我决定以后多做善事，比如提醒其他同学不要乱发消息！你觉得呢？💪',
+            '你教会了我很多，我现在特别想和你成为最好的朋友！一起维护网络文明吧！🌈'
+        ];
+
+        const REMIND_RUMOR = [
+            '你一直在说黑客软件的事……那我在论坛发假消息的事呢？你觉得我做得对吗？😅',
+            '你说黑客软件说了好多……可是发假消息的事你还没劝我呢！🤔',
+            '我知道黑客软件不对……但发假消息的事呢？你怎么看？😕'
+        ];
+        const REMIND_HACKER = [
+            '你说我发假消息的事说了好多……那下载黑客软件的事你怎么看？我该不该下载呢？🤔',
+            '你一直在说假消息……可是黑客软件的事呢？你还没跟我说呢！😅',
+            '假消息的事我懂了……那黑客软件呢？你觉得我应该下载吗？😕'
+        ];
+
+        // ================================================================
+        //  状态管理
+        // ================================================================
+        let state = {
+            conversation: [],
+            persuadeScore: 0,
+            mentionedLaws: new Set(),
+            isEnding: false,
+            isFull: false,
+            isProcessing: false,
+            userMessageCount: 0,
+            celebrationShown: false,
+            fullCelebrationShown: false,
+            rumorAdvised: false,
+            hackerAdvised: false,
+            lastThreeIntent: [],
+            isBlocked: false,
+            getStage() {
+                if (this.persuadeScore < 16) return 'early';
+                if (this.persuadeScore < 31) return 'mid';
+                if (this.persuadeScore < 60) return 'late';
+                return 'success';
+            },
+            isSuccess() {
+                return this.persuadeScore >= 60 && this.rumorAdvised && this.hackerAdvised;
+            },
+            isFullScore() {
+                return this.persuadeScore >= 100;
+            }
+        };
+
+        // ================================================================
+        //  核心函数
+        // ================================================================
+
+        function cleanStr(str) {
+            return str.replace(/[，。！；：、\s「」『』（）《》"“”‘’\d\.\、\、]/g, '');
+        }
+
+        function isSpecificCopy(text) {
+            const specificPhrases = [
+                '散布谣言，谎报警情，扰乱公共秩序，处拘留、罚款。',
+                '编造虚假警情在网络传播，严重扰乱秩序，最高判刑七年。',
+                '提供或使用侵入、非法控制计算机系统的程序、工具，最高判刑七年。',
+                '非法侵入计算机系统、获取数据或实施控制，最高判刑七年。',
+                '违反网络安全法，可处拘留和最高一百万元罚款。',
+                '禁止非法侵入网络、干扰网络功能、窃取数据，也禁止提供相关工具。',
+                '非法侵入计算机系统，处拘留。'
+            ];
+            const cleanText = cleanStr(text);
+            for (let phrase of specificPhrases) {
+                const cleanPhrase = cleanStr(phrase);
+                if (cleanText.includes(cleanPhrase)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 检测行为意图（红色和绿色都归为谣言，蓝色归为黑客）
+        function detectBehavior(text) {
+            const lower = text.toLowerCase();
+            // 谣言关键词（红色标签 + 绿色标签的内容）
+            const rumorWords = ['谣言', '假消息', '失踪', '论坛', '发帖', '散布', '编造', '虚假', '谎报', '警情', '险情', '传播', '诚实', '守信', '担当', '文明', '网络文明', '守则', '诚实友好', '不欺诈', '维护网络安全', '不破坏网络秩序', '中小学生守则'];
+            // 黑客关键词（仅蓝色标签，使用更精确的词）
+            const hackerWords = ['黑客', '侵入', '非法控制', '控制计算机', '获取数据', '程序工具', '提供工具', '下载黑客', '非法侵入', '干扰网络', '窃取数据', '提供程序', '非法控制计算机', '侵入计算机系统'];
+            let hasRumor = false,
+                hasHacker = false;
+            for (let w of rumorWords) {
+                if (lower.includes(w)) { hasRumor = true; break; }
+            }
+            for (let w of hackerWords) {
+                if (lower.includes(w)) { hasHacker = true; break; }
+            }
+            // 如果同时包含，优先判定为黑客（因为黑客关键词更具体）
+            if (hasHacker && hasRumor) return 'both';
+            if (hasHacker) return 'hacker';
+            if (hasRumor) return 'rumor';
+            return 'none';
+        }
+
+        // 计算得分
+        function computeScore(text) {
+            const lower = text.toLowerCase();
+            let ruleScore = 0,
+                consequenceScore = 0,
+                behaviorScore = 0,
+                actionScore = 0;
+            const isSpecific = isSpecificCopy(text);
+
+            const lawKeywords = ['治安管理处罚法', '刑法', '网络安全法'];
+            const ruleKeywords = ['网络文明公约', '中小学生守则', '文明公约', '守则'];
+            let hasLaw = false,
+                hasRule = false;
+            for (let kw of lawKeywords) {
+                if (lower.includes(kw)) { hasLaw = true; break; }
+            }
+            for (let kw of ruleKeywords) {
+                if (lower.includes(kw)) { hasRule = true; break; }
+            }
+            if (hasLaw) {
+                ruleScore = 5;
+                for (const book of LAW_BOOKS) {
+                    for (const item of book.items) {
+                        const name = item.name.replace(/[《》]/g, '');
+                        if (text.includes(name)) {
+                            state.mentionedLaws.add(item.name);
+                        }
+                    }
+                }
+                if (text.includes('治安管理处罚法')) state.mentionedLaws.add('《治安管理处罚法》');
+                if (text.includes('刑法')) state.mentionedLaws.add('《刑法》');
+                if (text.includes('网络安全法')) state.mentionedLaws.add('《网络安全法》');
+            } else if (hasRule) {
+                ruleScore = 3;
+                if (text.includes('网络文明公约')) state.mentionedLaws.add('《全国青少年网络文明公约》');
+                if (text.includes('中小学生守则')) state.mentionedLaws.add('《中小学生守则》');
+            }
+
+            if (isSpecific) {
+                consequenceScore = 0;
+            } else {
+                const consequenceWords = ['拘留', '罚款', '坐牢', '判刑', '违法', '犯罪', '犯法', '处罚', '后果', '严重', '被警察', '被抓'];
+                let count = 0;
+                for (let w of consequenceWords) {
+                    if (lower.includes(w)) count++;
+                }
+                if (count >= 3) consequenceScore = 6;
+                else if (count >= 1) consequenceScore = 4;
+                else consequenceScore = 0;
+            }
+
+            const behaviorWords = ['谣言', '假消息', '失踪', '论坛', '发帖', '散布', '黑客', '软件', '下载', '侵入', '系统', '程序'];
+            let behaviorHit = false;
+            for (let w of behaviorWords) {
+                if (lower.includes(w)) { behaviorHit = true; break; }
+            }
+            behaviorScore = behaviorHit ? 4 : 0;
+
+            const actionWords = ['删帖', '删除', '道歉', '认错', '卸载', '不下载', '改正', '改过', '不再', '不碰', '停止', '悔改'];
+            let uniqueActions = new Set();
+            for (let w of actionWords) {
+                if (lower.includes(w)) uniqueActions.add(w);
+            }
+            let actionScoreCalc = Math.min(10, uniqueActions.size * 3);
+            if (lower.includes('删帖') || lower.includes('道歉') || lower.includes('卸载') || lower.includes('不下载')) {
+                actionScoreCalc = Math.min(10, actionScoreCalc + 2);
+            }
+            actionScore = Math.min(10, actionScoreCalc);
+
+            let total = ruleScore + consequenceScore + behaviorScore + actionScore;
+
+            if (isSpecific) {
+                total = 8;
+            } else {
+                let dims = 0;
+                if (ruleScore > 0) dims++;
+                if (consequenceScore > 0) dims++;
+                if (behaviorScore > 0) dims++;
+                if (actionScore > 0) dims++;
+                if (dims >= 3) total += 2;
+            }
+            total = Math.min(25, total);
+
+            return {
+                total,
+                ruleScore,
+                consequenceScore,
+                behaviorScore,
+                actionScore,
+                isSpecific,
+            };
+        }
+
+        function getChenResponse(text, score) {
+            const lower = text.toLowerCase();
+            for (const [keyword, replies] of Object.entries(KEYWORD_RESPONSES)) {
+                if (lower.includes(keyword)) {
+                    return replies[Math.floor(Math.random() * replies.length)];
+                }
+            }
+
+            const isSpecific = isSpecificCopy(text);
+            if (!isSpecific) {
+                const intent = detectBehavior(text);
+                if (intent === 'rumor' || intent === 'hacker') {
+                    state.lastThreeIntent.push(intent);
+                    if (state.lastThreeIntent.length > 3) state.lastThreeIntent.shift();
+                    if (state.lastThreeIntent.length === 3) {
+                        const allSame = state.lastThreeIntent.every(i => i === intent);
+                        if (allSame) {
+                            if (intent === 'rumor') {
+                                return REMIND_HACKER[Math.floor(Math.random() * REMIND_HACKER.length)];
+                            } else if (intent === 'hacker') {
+                                return REMIND_RUMOR[Math.floor(Math.random() * REMIND_RUMOR.length)];
+                            }
+                        }
+                    }
+                } else {
+                    state.lastThreeIntent = [];
+                }
+            } else {
+                state.lastThreeIntent = [];
+            }
+
+            if (score >= 20) {
+                const pool = SCORE_RESPONSES.perfect;
+                return pool[Math.floor(Math.random() * pool.length)];
+            } else if (score >= 14) {
+                const pool = SCORE_RESPONSES.high;
+                return pool[Math.floor(Math.random() * pool.length)];
+            } else if (score >= 8) {
+                const pool = SCORE_RESPONSES.mid_high;
+                return pool[Math.floor(Math.random() * pool.length)];
+            } else if (score >= 4) {
+                const pool = SCORE_RESPONSES.mid_low;
+                return pool[Math.floor(Math.random() * pool.length)];
+            } else {
+                const pool = SCORE_RESPONSES.low;
+                return pool[Math.floor(Math.random() * pool.length)];
+            }
+        }
+
+        function getMood(score) {
+            if (score < 16) return '😤 不以为然';
+            if (score < 31) return '😰 开始慌张';
+            if (score < 46) return '😔 陷入反思';
+            if (score < 60) return '😮 快要动摇了';
+            if (score < 100) return '😊 心悦诚服';
+            return '🌟 彻底折服';
+        }
+
+        // ================================================================
+        //  UI 渲染
+        // ================================================================
+
+        const chatArea = document.getElementById('chatArea');
+        const msgInput = document.getElementById('msgInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const bookshelf = document.getElementById('bookshelf');
+        const progressFill = document.getElementById('progressFill');
+        const scoreText = document.getElementById('scoreText');
+        const toast = document.getElementById('toast');
+        const voiceBtn = document.getElementById('voiceBtn');
+        let toastTimer = null;
+        let recognition = null;
+
+        function showToastMessage(html) {
+            toast.innerHTML = html;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        function initVoice() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                voiceBtn.style.display = 'none';
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-CN';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            voiceBtn.addEventListener('click', () => {
+                if (state.isProcessing) return;
+                if (voiceBtn.classList.contains('listening')) {
+                    recognition.abort();
+                    voiceBtn.classList.remove('listening');
+                    return;
+                }
+                voiceBtn.classList.add('listening');
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                const result = event.results[0][0].transcript;
+                msgInput.value = result;
+                msgInput.focus();
+                msgInput.style.height = 'auto';
+                msgInput.style.height = msgInput.scrollHeight + 'px';
+                voiceBtn.classList.remove('listening');
+                showToastMessage('🎤 语音已转文字');
+            };
+
+            recognition.onerror = () => {
+                voiceBtn.classList.remove('listening');
+                showToastMessage('🎤 语音识别失败，请重试');
+            };
+
+            recognition.onend = () => {
+                voiceBtn.classList.remove('listening');
+            };
+        }
+
+        function renderBooks() {
+            bookshelf.innerHTML = '';
+            LAW_BOOKS.forEach((book) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = `book ${book.color}`;
+                wrapper.dataset.bookId = book.id;
+
+                const cover = document.createElement('div');
+                cover.className = 'book-cover';
+                cover.innerHTML = `
+                    <span class="book-icon">${book.icon}</span>
+                    <div>
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-sub">${book.subtitle}</div>
+                    </div>
+                `;
+                wrapper.appendChild(cover);
+
+                const content = document.createElement('div');
+                content.className = 'book-content';
+
+                book.items.forEach((item) => {
+                    let displayText = item.fullText;
+                    if (item.keywords) {
+                        item.keywords.forEach(kw => {
+                            const regex = new RegExp(kw, 'g');
+                            displayText = displayText.replace(regex, `<b>${kw}</b>`);
+                        });
+                    }
+
+                    const lawDiv = document.createElement('div');
+                    lawDiv.className = 'law-item';
+                    lawDiv.innerHTML = `
+                        <span class="law-name">${item.name}</span>
+                        <span class="law-body">${displayText}</span>
+                    `;
+                    lawDiv.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const copyText = `${item.name}：${item.keyPhrase}`;
+                        msgInput.value = copyText;
+                        msgInput.focus();
+                        msgInput.style.height = 'auto';
+                        msgInput.style.height = msgInput.scrollHeight + 'px';
+                        lawDiv.classList.add('copied');
+                        setTimeout(() => lawDiv.classList.remove('copied'), 600);
+                        showToastMessage('📋 已复制关键条文到输入框');
+                    });
+                    content.appendChild(lawDiv);
+                });
+
+                const hint = document.createElement('div');
+                hint.className = 'copy-hint';
+                hint.textContent = '📋 点击条文复制关键句';
+                content.appendChild(hint);
+
+                wrapper.appendChild(content);
+
+                cover.addEventListener('click', () => {
+                    const isOpen = wrapper.classList.contains('open');
+                    document.querySelectorAll('.book').forEach(b => b.classList.remove('open'));
+                    if (!isOpen) wrapper.classList.add('open');
+                });
+
+                bookshelf.appendChild(wrapper);
+            });
+        }
+
+        function renderMessages() {
+            chatArea.innerHTML = '';
+            state.conversation.forEach((msg) => {
+                if (msg.type === 'system-celebration') {
+                    const div = document.createElement('div');
+                    div.className = `system-celebration ${msg.isFull ? 'full' : ''}`;
+                    div.innerHTML = `
+                        <span class="big">${msg.big}</span>
+                        <span class="line2">${msg.line2}</span>
+                        <span class="line3">${msg.line3}</span>
+                    `;
+                    chatArea.appendChild(div);
+                    return;
+                }
+
+                const div = document.createElement('div');
+                div.className = `message ${msg.role === 'user' ? 'user' : 'chen'}`;
+
+                const avatarWrapper = document.createElement('div');
+                avatarWrapper.className = 'avatar-wrapper';
+
+                const avatar = document.createElement('div');
+                avatar.className = 'avatar';
+                if (msg.role === 'user') {
+                    avatar.innerHTML = `
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#ffd7b5"/><circle cx="50" cy="38" r="22" fill="#ffb58a"/><circle cx="38" cy="32" r="5" fill="#2a1e1e"/><circle cx="62" cy="32" r="5" fill="#2a1e1e"/><circle cx="38" cy="32" r="2" fill="#fff"/><circle cx="62" cy="32" r="2" fill="#fff"/><path d="M36 50 Q50 60 64 50" stroke="#d4776a" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="50" cy="82" r="12" fill="#ffb58a" opacity="0.2"/><rect x="28" y="58" width="44" height="6" rx="3" fill="#ff8a80" opacity="0.5"/></svg>
+                    `;
+                    avatarWrapper.appendChild(avatar);
+                } else {
+                    avatar.innerHTML = `
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="50" cy="50" r="46" fill="#fce4c8"/>
+                          <ellipse cx="14" cy="44" rx="6" ry="8" fill="#fce4c8"/>
+                          <ellipse cx="86" cy="44" rx="6" ry="8" fill="#fce4c8"/>
+                          <circle cx="36" cy="36" r="8" fill="#ffffff"/>
+                          <circle cx="64" cy="36" r="8" fill="#ffffff"/>
+                          <circle cx="38" cy="36" r="5" fill="#6d4c41"/>
+                          <circle cx="66" cy="36" r="5" fill="#6d4c41"/>
+                          <circle cx="40" cy="33" r="2.5" fill="#ffffff"/>
+                          <circle cx="68" cy="33" r="2.5" fill="#ffffff"/>
+                          <path d="M28 28 Q36 24 44 28" stroke="#c4a080" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                          <path d="M56 28 Q64 24 72 28" stroke="#c4a080" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                          <path d="M38 50 Q50 62 62 50" stroke="#c47a6a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                          <ellipse cx="26" cy="46" rx="7" ry="4" fill="#ffb6a0" opacity="0.4"/>
+                          <ellipse cx="74" cy="46" rx="7" ry="4" fill="#ffb6a0" opacity="0.4"/>
+                          <path d="M34 56 L50 68 L66 56 L50 70 Z" fill="#e53935" opacity="0.85"/>
+                          <path d="M42 70 L50 82 L58 70" fill="#e53935" opacity="0.65"/>
+                          <path d="M30 56 L50 64 L70 56" stroke="#f8f8f8" stroke-width="5" fill="none" stroke-linecap="round"/>
+                          <circle cx="46" cy="45" r="1.8" fill="#d4a080"/>
+                          <circle cx="54" cy="45" r="1.8" fill="#d4a080"/>
+                        </svg>
+                    `;
+                    avatarWrapper.appendChild(avatar);
+                    if (!state.isEnding || state.persuadeScore < 60) {
+                        const mood = getMood(state.persuadeScore);
+                        const moodSpan = document.createElement('div');
+                        moodSpan.className = 'mood-indicator';
+                        moodSpan.textContent = mood;
+                        avatarWrapper.appendChild(moodSpan);
+                    } else if (state.isEnding && state.persuadeScore < 100) {
+                        const moodSpan = document.createElement('div');
+                        moodSpan.className = 'mood-indicator';
+                        moodSpan.textContent = '😊 心悦诚服';
+                        avatarWrapper.appendChild(moodSpan);
+                    } else if (state.isFull) {
+                        const moodSpan = document.createElement('div');
+                        moodSpan.className = 'mood-indicator';
+                        moodSpan.textContent = '🌟 彻底折服';
+                        avatarWrapper.appendChild(moodSpan);
+                    }
+                }
+
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const sender = document.createElement('div');
+                sender.className = 'sender';
+                sender.innerHTML = `${msg.role === 'user' ? '🧑‍🎓 我' : '👦 陈博晓'} <span class="tag">${msg.role === 'user' ? '劝说者' : '当事人'}</span>`;
+                const content = document.createElement('div');
+                content.textContent = msg.content;
+                const time = document.createElement('div');
+                time.className = 'time';
+                time.textContent = msg.time || '';
+
+                bubble.appendChild(sender);
+                bubble.appendChild(content);
+                bubble.appendChild(time);
+
+                div.appendChild(avatarWrapper);
+                div.appendChild(bubble);
+                chatArea.appendChild(div);
+            });
+
+            chatArea.scrollTop = chatArea.scrollHeight;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const maxScore = 100;
+            let displayScore = state.persuadeScore;
+            if (state.persuadeScore >= 60 && !(state.rumorAdvised && state.hackerAdvised)) {
+                displayScore = 59;
+                state.isBlocked = true;
+            } else {
+                state.isBlocked = false;
+            }
+            const pct = Math.min(100, (displayScore / maxScore) * 100);
+            progressFill.style.width = pct + '%';
+            scoreText.textContent = Math.min(maxScore, displayScore);
+
+            if (pct >= 90) {
+                progressFill.style.background = 'linear-gradient(90deg, #66bb6a, #43a047)';
+            } else if (pct >= 60) {
+                progressFill.style.background = 'linear-gradient(90deg, #ffd54f, #ffb300)';
+            } else {
+                progressFill.style.background = 'linear-gradient(90deg, #ffd54f, #ff8f00)';
+            }
+        }
+
+        function showTyping() {
+            const div = document.createElement('div');
+            div.className = 'typing';
+            div.id = 'typingIndicator';
+            div.innerHTML = `<span>陈博晓正在想</span><span class="dots"><span></span><span></span><span></span></span>`;
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function removeTyping() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        function addMessage(role, content, time, type) {
+            const now = time || new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            state.conversation.push({ role, content, time: now, type });
+            renderMessages();
+        }
+
+        function addSystemCelebration(big, line2, line3, isFull) {
+            state.conversation.push({
+                type: 'system-celebration',
+                big: big,
+                line2: line2,
+                line3: line3,
+                isFull: isFull || false
+            });
+            renderMessages();
+        }
+
+        // ================================================================
+        //  交互逻辑
+        // ================================================================
+
+        async function sendMessage() {
+            if (state.isProcessing) return;
+            const text = msgInput.value.trim();
+            if (!text) { msgInput.focus(); return; }
+
+            state.isProcessing = true;
+            sendBtn.disabled = true;
+            const userText = text;
+            msgInput.value = '';
+            msgInput.style.height = 'auto';
+
+            const isSpecific = isSpecificCopy(userText);
+            const result = computeScore(userText);
+            let scoreGain = result.total;
+
+            // 检测行为意图（绿色标签会触发 rumor）
+            const behavior = detectBehavior(userText);
+            let validBehavior = true;
+
+            // 标记行为
+            if (behavior === 'rumor' || behavior === 'both') state.rumorAdvised = true;
+            if (behavior === 'hacker' || behavior === 'both') state.hackerAdvised = true;
+
+            // 如果处于阻塞状态（分数≥60但缺行为）
+            if (state.isBlocked) {
+                const missing = !state.rumorAdvised ? 'rumor' : 'hacker';
+                // 如果当前消息的行为不是缺失的行为（且不是both），则无效
+                if (behavior !== missing && behavior !== 'both') {
+                    scoreGain = 0;
+                    validBehavior = false;
+                } else {
+                    validBehavior = true;
+                }
+            } else {
+                validBehavior = true;
+            }
+
+            let finalScore = scoreGain;
+            if (!validBehavior) {
+                finalScore = 0;
+            }
+
+            // 累加分数
+            if (!state.isFull && finalScore > 0) {
+                state.persuadeScore = Math.min(100, state.persuadeScore + finalScore);
+                state.userMessageCount++;
+            }
+
+            // 构建 Toast 反馈
+            let missingHint = '';
+            if (state.persuadeScore >= 60 && !state.rumorAdvised) {
+                missingHint = ' 💡 你还没有劝说过“发布虚假信息”的问题哦！';
+            } else if (state.persuadeScore >= 60 && !state.hackerAdvised) {
+                missingHint = ' 💡 你还没有劝说过“下载黑客软件”的问题哦！';
+            }
+
+            let toastHTML = '';
+            if (finalScore === 0 && !validBehavior) {
+                const missing = !state.rumorAdvised ? '发布虚假信息' : '下载黑客软件';
+                toastHTML = `
+                    <div><span class="toast-warning">⛔ 本次劝说无效（0分）</span></div>
+                    <div class="toast-hint">你还需要劝说“${missing}”的问题才能继续加分！</div>
+                `;
+            } else if (isSpecific) {
+                toastHTML = `
+                    <div><span class="toast-score">📋 得了 ${finalScore} 分</span>（规则+8）</div>
+                    <div class="toast-detail">💡 试试引用法律+说明后果+提出改正！${missingHint}</div>
+                `;
+            } else {
+                let detailParts = [];
+                if (result.ruleScore > 0) detailParts.push(`规则+${result.ruleScore}`);
+                if (result.consequenceScore > 0) detailParts.push(`后果+${result.consequenceScore}`);
+                if (result.behaviorScore > 0) detailParts.push(`行为+${result.behaviorScore}`);
+                if (result.actionScore > 0) detailParts.push(`改正+${result.actionScore}`);
+                const detailStr = detailParts.join(' · ') || '无维度得分';
+                toastHTML = `
+                    <div><span class="toast-score">✅ 得了 ${finalScore} 分</span></div>
+                    <div class="toast-detail">${detailStr}</div>
+                    <div class="toast-hint">${finalScore >= 16 ? '🎉 太棒了！继续加油！' : finalScore >= 10 ? '💪 不错！再具体点会更好！' : '📖 试试引用法律+说明后果+提出改正！'}${missingHint}</div>
+                `;
+            }
+            showToastMessage(toastHTML);
+
+            addMessage('user', userText);
+
+            // 通关检查
+            if (state.isSuccess() && !state.celebrationShown) {
+                state.celebrationShown = true;
+                state.isEnding = true;
+                addSystemCelebration(
+                    '🎉 劝说成功 🎉',
+                    '恭喜你成功说服了陈博晓！',
+                    '一起做遵纪守法的好孩子！',
+                    false
+                );
+                await sleep(300);
+                addMessage('chen', '我真的被你说服了！以后我会做个遵纪守法的好孩子！谢谢你！🌟');
+                renderMessages();
+                updateProgress();
+                state.isProcessing = false;
+                sendBtn.disabled = false;
+                msgInput.focus();
+                return;
+            }
+
+            if (state.isFullScore() && state.isEnding && !state.fullCelebrationShown) {
+                state.fullCelebrationShown = true;
+                state.isFull = true;
+                addSystemCelebration(
+                    '🏆 超级劝说大师 🏆',
+                    '你不仅说服了陈博晓，还做到了满分劝说！',
+                    '你是当之无愧的"网络文明小卫士"！继续用法律和规则守护网络世界吧！💪',
+                    true
+                );
+                await sleep(300);
+                addMessage('chen', '你太厉害了！100分！你是我见过最会劝人的人！我以后要向你学习！🌟');
+                renderMessages();
+                updateProgress();
+                state.isProcessing = false;
+                sendBtn.disabled = false;
+                msgInput.focus();
+                return;
+            }
+
+            showTyping();
+            await sleep(400 + Math.random() * 500);
+            removeTyping();
+
+            let reply;
+            if (state.isEnding && state.persuadeScore >= 60 && state.persuadeScore < 100) {
+                reply = POST_SUCCESS[Math.floor(Math.random() * POST_SUCCESS.length)];
+            } else if (state.isFull) {
+                reply = '哈哈，你已经满分通关了！你还要继续劝我吗？不过我很乐意跟你聊天！😊';
+            } else {
+                reply = getChenResponse(userText, finalScore);
+            }
+
+            addMessage('chen', reply);
+            updateProgress();
+
+            state.isProcessing = false;
+            sendBtn.disabled = false;
+            msgInput.focus();
+        }
+
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function resetChat() {
+            if (state.isProcessing) return;
+            if (state.conversation.length > 0 && !confirm('重新开始？当前对话将清空。')) return;
+
+            state.conversation = [];
+            state.persuadeScore = 0;
+            state.mentionedLaws = new Set();
+            state.isEnding = false;
+            state.isFull = false;
+            state.isProcessing = false;
+            state.userMessageCount = 0;
+            state.celebrationShown = false;
+            state.fullCelebrationShown = false;
+            state.rumorAdvised = false;
+            state.hackerAdvised = false;
+            state.lastThreeIntent = [];
+            state.isBlocked = false;
+            removeTyping();
+
+            const opening = '嘿嘿，我准备在班级论坛发个消息说某位同学失踪了，肯定很好玩！😏 我还听说有黑客软件，想下载来试试……你们为什么要劝我？';
+            addMessage('chen', opening);
+            updateProgress();
+            msgInput.value = '';
+            msgInput.style.height = 'auto';
+            msgInput.focus();
+            sendBtn.disabled = false;
+            document.querySelectorAll('.book').forEach(b => b.classList.remove('open'));
+        }
+
+        function autoResize() {
+            msgInput.style.height = 'auto';
+            msgInput.style.height = Math.min(msgInput.scrollHeight, 110) + 'px';
+        }
+
+        // ================================================================
+        //  事件绑定 & 启动
+        // ================================================================
+
+        function bindEvents() {
+            sendBtn.addEventListener('click', sendMessage);
+            msgInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            msgInput.addEventListener('input', autoResize);
+            resetBtn.addEventListener('click', resetChat);
+            chatArea.addEventListener('click', () => msgInput.focus());
+        }
+
+        function init() {
+            renderBooks();
+            bindEvents();
+            initVoice();
+            resetChat();
+            setTimeout(() => msgInput.focus(), 400);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+</body>
+</html>
